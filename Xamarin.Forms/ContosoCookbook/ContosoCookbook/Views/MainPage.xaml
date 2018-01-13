@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:local="clr-namespace:ContosoCookbook.Views;assembly=ContosoCookbook"
+            xmlns:cbControls="clr-namespace:CodeBrix.Forms.Controls;assembly=CodeBrix.Forms"
+            xmlns:cbConverters="clr-namespace:CodeBrix.Forms.Converters;assembly=CodeBrix.Forms"
+            x:Class="ContosoCookbook.Views.MainPage"
+            Title="{Binding AppTitle}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <cbConverters:EmbeddedResourceImagePathConverter x:Key="EmbeddedResourceImagePath" />
+            <cbConverters:EmbeddedResourcePathToUriConverter x:Key="EmbeddedResourcePathToUri" />
+            <cbConverters:InvertBoolConverter x:Key="BoolInverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="74" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ScrollView Grid.Row="0" Orientation="Horizontal">
+            <cbControls:RepeaterView ItemsSource="{Binding RecipeGroups}" Orientation="Horizontal">
+                <cbControls:RepeaterView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="10,4,10,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="42" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="4" />
+                            </Grid.RowDefinitions>
+                            <cbControls:SvgImage Grid.Row="0" WidthRequest="80" HeightRequest="42" 
+                                                       IsGrayscale="{Binding IsSelected, Converter={StaticResource BoolInverter}}"
+                                                       Source="{Binding FlagPath, Converter={StaticResource EmbeddedResourcePathToUri}}">
+                                <cbControls:SvgImage.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectRecipeGroupCommand}" />
+                                </cbControls:SvgImage.GestureRecognizers>
+                            </cbControls:SvgImage>
+                            <Label Grid.Row="1" Text="{Binding Title}" HorizontalOptions="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectRecipeGroupCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+                    </DataTemplate>
+                </cbControls:RepeaterView.ItemTemplate>
+            </cbControls:RepeaterView>
+        </ScrollView>
+        <ListView Grid.Row="1" ItemsSource="{Binding Recipes}" ItemTapped="OnItemTapped" RowHeight="128">
+            <!--Not sure why this isn't working, so I set a generic RowHeight above.
+            <ListView.RowHeight>
+                <OnPlatform x:TypeArguments="x:Int32">
+                    <On Platform="iOS">128</On>
+                    <On Platform="Android">136</On>
+                    <On Platform="UWP">144</On>
+                </OnPlatform>
+            </ListView.RowHeight>-->
+            <!--Also had problems with Platform="Windows" instead of UWP above-->
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition>
+                                    <ColumnDefinition.Width>
+                                        <OnPlatform x:TypeArguments="GridLength">
+                                            <On Platform="iOS">120</On>
+                                            <On Platform="Android">144</On>
+                                            <On Platform="UWP">144</On>
+                                        </OnPlatform>
+                                    </ColumnDefinition.Width>
+                                </ColumnDefinition>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding ImagePath, Converter={StaticResource EmbeddedResourceImagePath}}" />
+                            <Grid Grid.Column="1">
+                                <Grid.Padding>
+                                    <OnPlatform x:TypeArguments="Thickness">
+                                        <On Platform="iOS">4,8,0,8</On>
+                                        <On Platform="Android">8,2,0,4</On>
+                                        <On Platform="UWP">12,-2,0,-4</On>
+                                    </OnPlatform>
+                                </Grid.Padding>
+                                <Label Text="{Binding Subtitle}" FontSize="Large" LineBreakMode="WordWrap" />
+                            </Grid>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

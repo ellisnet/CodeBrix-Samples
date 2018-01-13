@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<cbControls:OrientationAwareContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cbControls="clr-namespace:CodeBrix.Forms.Controls;assembly=CodeBrix.Forms"
+             xmlns:cbConverters="clr-namespace:CodeBrix.Forms.Converters;assembly=CodeBrix.Forms"
+             x:Class="UsingPageDialogService.Views.MainPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <cbConverters:InvertBoolConverter x:Key="BoolInverter" />
+            <cbConverters:CodeBrixColorConverter x:Key="CodeBrixColorConvert" />
+            <cbConverters:BoolToCodeBrixColorConverter x:Key="BoolToCodeBrixColor" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <!--Note that this page demonstrates using different views for Portrait vs. Landscape.
+        It also demonstrates using converters to set UI elements to colors from the CodeBrix.Colors namespace.-->
+    
+    <Grid BackgroundColor="{Binding IsPortraitOrientation, Converter={StaticResource BoolToCodeBrixColor}, 
+        ConverterParameter='true:MaterialPalette.LightBluePrimaryLight;false:MaterialPalette.AmberPrimaryLight'}">
+        
+        <!--This XAML section defines what the user sees when the device is in Portrait orientation-->
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center" IsVisible="{Binding IsPortraitOrientation}">
+            <Button Text="DisplayAlert" Command="{Binding DisplayAlertCommand}" 
+                    BackgroundColor="{Binding CodeBrixColor, Converter={StaticResource CodeBrixColorConvert}, ConverterParameter='PureFlat.Yellow'}"/>
+            <Button Text="DisplayActionSheet" Command="{Binding DisplayActionSheetCommand}" 
+                    BackgroundColor="{Binding CodeBrixColor, Converter={StaticResource CodeBrixColorConvert}, ConverterParameter='PureFlat.Cyan'}"/>
+            <Button Text="DisplayActionSheet using ActionSheetButtons" Command="{Binding DisplayActionSheetUsingActionSheetButtonsCommand}" 
+                    BackgroundColor="{Binding CodeBrixColor, Converter={StaticResource CodeBrixColorConvert}, ConverterParameter='PureFlat.Orange'}"/>
+        </StackLayout>
+
+        <!--This XAML section defines what the user sees when the device is in Landscape orientation (i.e. not Portrait orientation)-->
+        <Grid VerticalOptions="Center" HorizontalOptions="Center" ColumnSpacing="4" RowSpacing="4"
+              IsVisible="{Binding IsPortraitOrientation, Converter={StaticResource BoolInverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition>
+                    <RowDefinition.Height>
+                        <OnPlatform x:TypeArguments="GridLength">
+                            <On Platform="Android" Value="44" />
+                            <On Platform="iOS" Value="34" />
+                            <On Platform="UWP" Value="34" />
+                        </OnPlatform>
+                    </RowDefinition.Height>
+                </RowDefinition>
+                <RowDefinition>
+                    <RowDefinition.Height>
+                        <OnPlatform x:TypeArguments="GridLength">
+                            <On Platform="Android" Value="44" />
+                            <On Platform="iOS" Value="34" />
+                            <On Platform="UWP" Value="34" />
+                        </OnPlatform>
+                    </RowDefinition.Height>
+                </RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="200" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Row="0" Grid.Column="0" Text="DisplayAlert" Command="{Binding DisplayAlertCommand}" 
+                    BackgroundColor="{Binding CodeBrixColor, Converter={StaticResource CodeBrixColorConvert}, ConverterParameter='PureFlat.Yellow'}"/>
+            <Button Grid.Row="0" Grid.Column="1" Text="DisplayActionSheet" Command="{Binding DisplayActionSheetCommand}" 
+                    BackgroundColor="{Binding CodeBrixColor, Converter={StaticResource CodeBrixColorConvert}, ConverterParameter='PureFlat.Cyan'}"/>
+            <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="DisplayActionSheet using ActionSheetButtons" 
+                    Command="{Binding DisplayActionSheetUsingActionSheetButtonsCommand}" 
+                    BackgroundColor="{Binding CodeBrixColor, Converter={StaticResource CodeBrixColorConvert}, ConverterParameter='PureFlat.Orange'}"/>
+        </Grid>
+        
+    </Grid>
+</cbControls:OrientationAwareContentPage>
+    

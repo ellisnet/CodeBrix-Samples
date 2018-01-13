@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UsingDependencyService.Views.MainPage">
+    
+  <StackLayout VerticalOptions="CenterAndExpand">
+    <StackLayout.HorizontalOptions>
+        <OnPlatform x:TypeArguments="LayoutOptions">
+            <On Platform="iOS">Center</On>
+            <On Platform="Android">Center</On>
+            <On Platform="UWP">FillAndExpand</On>
+        </OnPlatform>
+    </StackLayout.HorizontalOptions>
+    <StackLayout.Margin>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS">0,0,0,0</On>
+            <On Platform="Android">0,0,0,0</On>
+            <On Platform="UWP">20,0,20,0</On>
+        </OnPlatform>
+    </StackLayout.Margin>
+    <Entry Text="{Binding TextToSay}" VerticalOptions="Center">
+        <Entry.HorizontalOptions>
+            <OnPlatform x:TypeArguments="LayoutOptions">
+                <On Platform="iOS">Center</On>
+                <On Platform="Android">Center</On>
+                <On Platform="UWP">FillAndExpand</On>
+            </OnPlatform>
+        </Entry.HorizontalOptions>
+    </Entry>
+    <Button Command="{Binding SpeakCommand}" Text="Speak"/>
+  </StackLayout>
+  
+</ContentPage>

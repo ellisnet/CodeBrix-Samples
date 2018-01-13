@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<cbControls:NoSwipeTabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UsingCompositeCommands.Views.MainPage"
+             xmlns:local="clr-namespace:UsingCompositeCommands.Views"
+             xmlns:cbControls="clr-namespace:CodeBrix.Forms.Controls;assembly=CodeBrix.Forms"
+             Title="CompositeCommands">
+
+  <TabbedPage.ToolbarItems>
+    <ToolbarItem Text="Save All" Command="{Binding ApplicationCommands.SaveCommand}"/>
+    <ToolbarItem Text="Reset" Command="{Binding ApplicationCommands.ResetCommand}"/>
+  </TabbedPage.ToolbarItems>
+
+  <local:TabA />
+  <local:TabB />
+  <local:TabC />
+
+</cbControls:NoSwipeTabbedPage>

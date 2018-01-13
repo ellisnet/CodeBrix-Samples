@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VS2017MasterDetail.Views.ItemDetailPage"
+             xmlns:vm="clr-namespace:VS2017MasterDetail.ViewModels;"
+             BindingContext="{Binding Source={x:Static vm:DesignTimeViewModelLocator.ItemDetailPage}}"
+             Title="{Binding Title}">
+    <!--CODEBRIX-CONVERSION-NOTE: Added the ViewModels XML namespace ('vm') and  
+        design-time reference to the static DesignTimeViewModelLocator class above -
+        to make it easier to edit this XAML file at design-time (so ReSharper can find the VM)-->
+    <StackLayout Spacing="20" Padding="15">
+        <Label Text="Text:" FontSize="Medium" />
+        <Label Text="{Binding Item.Text}" FontSize="Small"/>
+        <Label Text="Description:" FontSize="Medium" />
+        <Label Text="{Binding Item.Description}" FontSize="Small"/>
+    </StackLayout>
+</ContentPage>

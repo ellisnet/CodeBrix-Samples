@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MasterDetailPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="HamburgerMenu.Views.MainPage">
+    <MasterDetailPage.Master>
+        <!-- Hamburger Menu Secret Sauce... Add an Icon!!!! Make sure it's in your resources for your Platform Project -->
+        <!-- Hamburger icon does not seem to show on UWP - more info may be available here:
+        https://forums.xamarin.com/discussion/77100/menu-icon-and-title-not-showing-on-uwp-works-on-android-and-ios
+        -->
+        <NavigationPage Title="Required Foo" Icon="hamburger.png">
+            <x:Arguments>
+                <ContentPage Title="Menu">
+                    <StackLayout Padding="40">
+                        <Label Text="{Binding UserName,StringFormat='Hello, {0}'}" />
+                        <Button Text="View A" Command="{Binding NavigateCommand}" CommandParameter="NavigationPage/ViewA?message=Did%20you%20see%20the%20secret%20sauce%3F" />
+                        <Button Text="View B" Command="{Binding NavigateCommand}" CommandParameter="NavigationPage/ViewB?message=Told%20you%20Prism%20Rocks%21%21%21" />
+                        <Button Text="View C" Command="{Binding NavigateCommand}" CommandParameter="NavigationPage/ViewC?message=Does%20the%20hamburger%20make%20you%20hungry%3F%3F%3F" />
+                    </StackLayout>
+                </ContentPage>
+            </x:Arguments>
+        </NavigationPage>
+    </MasterDetailPage.Master>
+</MasterDetailPage>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="UsingEventAggregator.Views.HomePage"
+	BackgroundColor="White" Padding="20">
+	<ContentPage.Content>
+		<Frame HasShadow="true" VerticalOptions="Center">
+			<StackLayout>
+				<Label Text="{Binding Title}" HorizontalTextAlignment="Center" />
+				<StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="40,50,40,50">
+					<Label Text="Isn't this fun?" HorizontalOptions="FillAndExpand" VerticalOptions="Center" />
+                    <Switch IsToggled="{Binding IsFun}" HorizontalOptions="End" IsEnabled="false" VerticalOptions="Center" />
+                    <Label Text="{Binding LovingItHatingIt}" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="20,0,0,0" 
+                           LineBreakMode="WordWrap" />
+				</StackLayout>
+				<Button Text="Change Feedback" Command="{Binding EntryCommand}" />
+				<Button Text="Back" Command="{Binding GoBackCommand}" />
+			</StackLayout>
+		</Frame>
+	</ContentPage.Content>
+</ContentPage>

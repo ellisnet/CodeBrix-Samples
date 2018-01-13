@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="VS2017MasterDetail.Views.NewItemPage"
+             xmlns:vm="clr-namespace:VS2017MasterDetail.ViewModels;"
+             BindingContext="{Binding Source={x:Static vm:DesignTimeViewModelLocator.NewItemPage}}"
+		     Title="New Item">
+    <!--CODEBRIX-CONVERSION-NOTE: Added the ViewModels XML namespace ('vm') and  
+        design-time reference to the static DesignTimeViewModelLocator class above -
+        to make it easier to edit this XAML file at design-time (so ReSharper can find the VM)-->
+    <ContentPage.ToolbarItems>
+        <!--CODEBRIX-CONVERSION-NOTE: replaced Clicked="Save_Clicked" in the line below with:
+            Command="{Binding SaveItemCommand}"-->
+        <ToolbarItem Text="Save" Command="{Binding SaveItemCommand}" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout Spacing="20" Padding="15">
+            <Label Text="Text" FontSize="Medium" />
+            <Entry Text="{Binding Item.Text}" FontSize="Small" />
+            <Label Text="Description" FontSize="Medium" />
+            <Editor Text="{Binding Item.Description}" FontSize="Small" Margin="0" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

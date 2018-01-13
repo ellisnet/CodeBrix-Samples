@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<cbControls:OrientationAwareContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cbControls="clr-namespace:CodeBrix.Forms.Controls;assembly=CodeBrix.Forms"
+             xmlns:local="clr-namespace:OrientationAware.Views"
+             x:Class="OrientationAware.Views.MainPage">
+    <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Center">
+        <Label Text="This relatively boring screen is what you see on non-mobile platforms." HorizontalOptions="Center" />
+        <Label Text="Try re-sizing the window to switch between Portrait and Landscape modes." HorizontalOptions="Center" />
+        <Label Text="For more excitement, check out the app running on Android and iOS devices." HorizontalOptions="Center" />
+        <Label Text="{Binding OrientationText}" HorizontalOptions="Center" FontAttributes="Bold" />
+    </StackLayout>
+</cbControls:OrientationAwareContentPage>

@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<cbControls:OrientationAwareContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cbControls="clr-namespace:CodeBrix.Forms.Controls;assembly=CodeBrix.Forms"
+             xmlns:cbConverters="clr-namespace:CodeBrix.Forms.Converters;assembly=CodeBrix.Forms"
+             x:Class="OrientationAware.Views.MainPageiOS">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <cbConverters:EmbeddedResourcePathToUriConverter x:Key="EmbeddedResourcePathToUri" />
+            <cbConverters:InvertBoolConverter x:Key="BoolInverter" />
+            <cbConverters:BoolToParameterIntegerConverter x:Key="BoolToParameterInteger" />
+            <cbConverters:BoolToParameterIntegerValuesConverter x:Key="BoolToParameterIntegerValues" />
+            <cbConverters:BoolToParameterThicknessConverter x:Key="BoolToParameterThickness" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+
+            <!--The following Grid will only be seen on iPhones with the Notch(TM) - i.e. iPhone X-->
+            <Grid IsVisible="{Binding HasDisplayNotch}" BackgroundColor="CornflowerBlue">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="{Binding HasTopDisplayNotch, Converter={StaticResource BoolToParameterInteger}, ConverterParameter='20'}" /> <!--Notch might be here-->
+                    <RowDefinition Height="*" /> <!--Content goes here-->
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{Binding HasLeftDisplayNotch, Converter={StaticResource BoolToParameterInteger}, ConverterParameter='20'}" /> <!--Or Notch might be here-->
+                    <ColumnDefinition Width="*" /> <!--Content goes here-->
+                    <ColumnDefinition Width="{Binding HasRightDisplayNotch, Converter={StaticResource BoolToParameterInteger}, ConverterParameter='20'}" /> <!--Or Notch might be here-->
+                </Grid.ColumnDefinitions>
+                <Frame Grid.Row="1" Grid.Column="1" Margin="10, 10, 10, 18" BackgroundColor="LemonChiffon">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="2*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{Binding IsLandscapeOrientation, Converter={StaticResource BoolToParameterIntegerValues}, ConverterParameter='true:200;false:20'}" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="{Binding IsLandscapeOrientation, Converter={StaticResource BoolToParameterIntegerValues}, ConverterParameter='true:200;false:20'}" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Center">
+                            <Label Text="iPhone X, eh? Nice!" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                            <Label Text="The arrow should follow the notch." HorizontalOptions="Center" HorizontalTextAlignment="Center" LineBreakMode="WordWrap" />
+                        </StackLayout>
+                        <cbControls:SvgImage Grid.Row="0" Grid.Column="1" IsVisible="{Binding HasTopDisplayNotch}" WidthRequest="40" HeightRequest="90" 
+                                                   Source="{Binding UpArrowPath, Converter={StaticResource EmbeddedResourcePathToUri}}" />
+                        <cbControls:SvgImage Grid.Row="1" Grid.Column="0" IsVisible="{Binding HasLeftDisplayNotch}" WidthRequest="180" HeightRequest="80" 
+                                                   Source="{Binding LeftArrowPath, Converter={StaticResource EmbeddedResourcePathToUri}}" />
+                        <cbControls:SvgImage Grid.Row="1" Grid.Column="2" IsVisible="{Binding HasRightDisplayNotch}" WidthRequest="180" HeightRequest="80" 
+                                                   Source="{Binding RightArrowPath, Converter={StaticResource EmbeddedResourcePathToUri}}" />
+                    </Grid>
+                </Frame>
+            </Grid>
+
+            <!--The following Grid will only be seen on *ancient* pre-Notch iPhones-->
+            <Grid IsVisible="{Binding HasDisplayNotch, Converter={StaticResource BoolInverter}}" BackgroundColor="MediumPurple">
+                <Frame BackgroundColor="LightBlue" Margin="{Binding IsPortraitNormalOrientation, Converter={StaticResource BoolToParameterThickness}, ConverterParameter='true:10,24,10,10;false:10'}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="2*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{Binding IsLandscapeOrientation, Converter={StaticResource BoolToParameterIntegerValues}, ConverterParameter='true:200;false:20'}" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="{Binding IsLandscapeOrientation, Converter={StaticResource BoolToParameterIntegerValues}, ConverterParameter='true:200;false:20'}" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Center">
+                            <Label Text="Saving money by extending the life of your older iPhone? Excellent!" HorizontalOptions="Center" HorizontalTextAlignment="Center" LineBreakMode="WordWrap" />
+                            <Label Text="The arrow should follow the home button." HorizontalOptions="Center" HorizontalTextAlignment="Center" LineBreakMode="WordWrap" />
+                        </StackLayout>
+                        <cbControls:SvgImage Grid.Row="2" Grid.Column="1" IsVisible="{Binding IsPortraitNormalOrientation}" WidthRequest="40" HeightRequest="90" 
+                                                   Source="{Binding DownArrowPath, Converter={StaticResource EmbeddedResourcePathToUri}}" />
+                        <cbControls:SvgImage Grid.Row="1" Grid.Column="0" IsVisible="{Binding IsLandscapeRightOrientation}" WidthRequest="180" HeightRequest="80" 
+                                                   Source="{Binding LeftArrowPath, Converter={StaticResource EmbeddedResourcePathToUri}}" />
+                        <cbControls:SvgImage Grid.Row="1" Grid.Column="2" IsVisible="{Binding IsLandscapeLeftOrientation}" WidthRequest="180" HeightRequest="80" 
+                                                   Source="{Binding RightArrowPath, Converter={StaticResource EmbeddedResourcePathToUri}}" />
+                    </Grid>
+                </Frame>
+            </Grid>
+
+        </Grid>
+    </ContentPage.Content>
+</cbControls:OrientationAwareContentPage>

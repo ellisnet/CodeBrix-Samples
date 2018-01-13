@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<cbControls:OrientationAwareContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cbControls="clr-namespace:CodeBrix.Forms.Controls;assembly=CodeBrix.Forms"
+             xmlns:cbConverters="clr-namespace:CodeBrix.Forms.Converters;assembly=CodeBrix.Forms"
+             x:Class="OrientationAware.Views.MainPageDroid">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <cbConverters:EmbeddedResourcePathToUriConverter x:Key="EmbeddedResourcePathToUri" />
+            <cbConverters:BoolToParameterIntegerValuesConverter x:Key="BoolToParameterIntegerValues" />
+            <cbConverters:BoolToParameterThicknessConverter x:Key="BoolToParameterThickness" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid BackgroundColor="LightSkyBlue">
+            <Frame BackgroundColor="Khaki" Margin="{Binding IsPortraitNormalOrientation, Converter={StaticResource BoolToParameterThickness}, ConverterParameter='true:10,24,10,10;false:10'}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="{Binding AndroidLandscapeOrientation, Converter={StaticResource BoolToParameterIntegerValues}, ConverterParameter='true:200;false:20'}" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="{Binding AndroidLandscapeOrientation, Converter={StaticResource BoolToParameterIntegerValues}, ConverterParameter='true:200;false:20'}" />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Center">
+                        <Label Text="{Binding DeviceText}" HorizontalOptions="Center" HorizontalTextAlignment="Center" LineBreakMode="WordWrap" />
+                        <Label Text="The arrow should follow the hardware button, if there is one; or bottom of phone, if there isn't (i.e. soft button)." HorizontalOptions="Center" 
+                               HorizontalTextAlignment="Center" LineBreakMode="WordWrap" />
+                    </StackLayout>
+                    <cbControls:SvgImage Grid.Row="2" Grid.Column="1" IsVisible="{Binding AndroidPortraitOrientation}" WidthRequest="40" HeightRequest="90" 
+                                                   Source="{Binding DownArrowPath, Converter={StaticResource EmbeddedResourcePathToUri}}" />
+                    <cbControls:SvgImage Grid.Row="1" Grid.Column="0" IsVisible="{Binding AndroidLandscapeRightOrientation}" WidthRequest="180" HeightRequest="80" 
+                                                   Source="{Binding LeftArrowPath, Converter={StaticResource EmbeddedResourcePathToUri}}" />
+                    <cbControls:SvgImage Grid.Row="1" Grid.Column="2" IsVisible="{Binding AndroidLandscapeLeftOrientation}" WidthRequest="180" HeightRequest="80" 
+                                                   Source="{Binding RightArrowPath, Converter={StaticResource EmbeddedResourcePathToUri}}" />
+                </Grid>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</cbControls:OrientationAwareContentPage>

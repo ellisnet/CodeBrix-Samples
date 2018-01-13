@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+     x:Class="TabbedNavigation.Views.MainPage" Title="MainPage">
+    <TableView Intent="Form">
+        <TableRoot>
+            <TableSection Title="Select Pages">
+                <SwitchCell Text="View A" On="{Binding ShowViewA}" />
+                <SwitchCell Text="View B" On="{Binding ShowViewB}" />
+                <SwitchCell Text="View C" On="{Binding ShowViewC}" />
+            </TableSection>
+            <TableSection Title="Navigate">
+                <ViewCell>
+                    <Button Text="Show Dynamic Tabbed Page" Command="{Binding LaunchDynamicTabbedPageCommand}" />
+                </ViewCell>
+                <ViewCell>
+                    <Button Text="Navigate to INavigationAware TabbedPage" Command="{Binding NavigateCommand}" CommandParameter="NavigatingAwareTabbedPage?message=Hello%20from%20MainPage" />
+                </ViewCell>
+                <ViewCell>
+                    <Button Text="Navigate to Event Initializing TabbedPage" Command="{Binding NavigateCommand}" CommandParameter="EventInitializingTabbedPage?message=Hello%20from%20MainPage" />
+                </ViewCell>
+            </TableSection>
+        </TableRoot>
+    </TableView>
+</ContentPage>
